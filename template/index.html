@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dong Dong Events: List</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="header">
+            <div id="bar">
+                <a v-if="name">Welcome back.</a>
+                <div v-else>
+                    <a @click="showLoginModal = true">Login</a>
+                    <a @click="showRegModal = true">Register</a>
+                </div>
+            </div>
+        </div>
+        <div id="grid">
+            <card-grid :cards-data="cardsData"></card-grid>
+        </div>
+        <transition id="modalLogin" v-if="showLoginModal">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-container">
+
+                        <div class="modal-header">
+                            Log In
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="">
+                                <input v-model="username" type="text" placeholder="Username">
+                                <input v-model="password" type="password" placeholder="Password">
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button @click="login(username,password)">Login</button>
+                            <button @click="showLoginModal = false">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <transition id="modalReg" v-if="showRegModal">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-container">
+
+                        <div class="modal-header">
+                            Log In
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="">
+                                <input v-model="username" type="text" placeholder="Username">
+                                <input v-model="email" type="text" placeholder="Email">
+                                <input v-model="password" type="password" placeholder="Password">
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button @click="newuser(username,password)">Login</button>
+                            <button @click="showRegModal = false">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
+    <template id="card-template">
+        <div id="container">
+            <div v-for="event in cardsData" class="card">
+                <img :src="event.image" />
+                <a :href="'?action=detail&eid='+event.nid">
+                    <h2>{{event.title}}</h2>
+                </a>
+            </div>
+        </div>
+    </template>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/vue-resource.min.js"></script>
+<script src="js/index.js"></script>
+<link rel="stylesheet" href="css/index.css">
+
+</html>
